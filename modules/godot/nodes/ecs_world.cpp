@@ -436,6 +436,7 @@ PackedStringArray WorldECS::get_configuration_warnings() const {
 		warnings.push_back(TTR("The selected pipeline `") + active_pipeline + TTR("` doesn't exists in this WorldECS."));
 	}
 
+#ifdef TOOLS_ENABLED
 	for (int i = 0; i < pipelines.size(); i += 1) {
 		const ExecutionGraph *graph = pipelines[i]->editor_get_execution_graph_or_null();
 		if (graph) {
@@ -447,6 +448,7 @@ PackedStringArray WorldECS::get_configuration_warnings() const {
 			}
 		}
 	}
+#endif
 
 	return warnings;
 }

@@ -6,8 +6,9 @@
 #include "core/templates/oa_hash_map.h"
 #include "ecs_utilities.h"
 
+#ifdef TOOLS_ENABLED
 class EditorFileSystemDirectory;
-
+#endif
 /// This is an utility that is intended for in editor usage that allow:
 /// - Save script components.
 /// - Load script components.
@@ -85,7 +86,6 @@ public:
 
 	void reload_scripts();
 	uint64_t load_scripts(EditorFileSystemDirectory *p_dir);
-
 	void define_editor_default_component_properties();
 	void reset_editor_default_component_properties();
 

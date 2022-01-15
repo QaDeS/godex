@@ -26,7 +26,7 @@
 #include "editor/plugins/node_3d_editor_plugin.h"
 
 extern Ref<Components3DGizmoPlugin> component_gizmo;
-
+#ifdef TOOLS_ENABLED
 static void _editor_init() {
 	EditorNode *p_editor = EditorNode::get_singleton();
 	ERR_FAIL_COND_MSG(p_editor == nullptr, "The editor is not defined.");
@@ -40,7 +40,7 @@ static void _editor_init() {
 	Node3DEditor::get_singleton()->add_gizmo_plugin(Ref<Components3DGizmoPlugin>(Components3DGizmoPlugin::get_singleton()));
 	component_gizmo = Ref<Components3DGizmoPlugin>();
 }
-
+#endif
 void initialize_godot_module(ModuleInitializationLevel p_level) {
 	if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Nodes
@@ -146,7 +146,7 @@ void initialize_godot_module(ModuleInitializationLevel p_level) {
 		ECS::preload_scripts();
 #endif
 		memnew(ScriptEcs());
-
+#ifdef TOOLS_ENABLED
 	} else if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {
 		if (Engine::get_singleton()->is_editor_hint()) {
 			EditorNode::add_init_callback(_editor_init);
@@ -160,6 +160,9 @@ void initialize_godot_module(ModuleInitializationLevel p_level) {
 			// ScriptEcs::get_singleton()->register_runtime_scripts();
 		}
 	}
+#else
+	}
+#endif
 }
 
 void uninitialize_godot_module(ModuleInitializationLevel p_level) {
@@ -169,6 +172,7 @@ void uninitialize_godot_module(ModuleInitializationLevel p_level) {
 		}
 		memdelete(ScriptEcs::get_singleton());
 	} else if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {
+
 		if (Engine::get_singleton()->is_editor_hint()) {
 			ScriptEcs::get_singleton()->reset_editor_default_component_properties();
 		}

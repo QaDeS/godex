@@ -1,3 +1,4 @@
+#ifdef TOOLS_ENABLED
 #include "editor_world_ecs.h"
 
 #include "../../../ecs.h"
@@ -951,6 +952,7 @@ void EditorWorldECS::pipeline_toggle_pipeline_view() {
 }
 
 void EditorWorldECS::pipeline_errors_warnings_update() {
+#ifdef TOOLS_ENABLED
 	clear_errors_warnings();
 	bool show = false;
 
@@ -967,6 +969,7 @@ void EditorWorldECS::pipeline_errors_warnings_update() {
 	}
 
 	errors_warnings_panel->set_visible(show);
+#endif
 }
 
 void EditorWorldECS::pipeline_features_update() {
@@ -1063,6 +1066,7 @@ void pipeline_dispatcher_view_update(DispatcherPipelineView *p_view, Ref<Executi
 }
 
 void EditorWorldECS::pipeline_view_update() {
+#ifdef TOOLS_ENABLED
 	if (!main_container_pipeline_view->is_visible()) {
 		// It's not visible, nothing to do.
 		return;
@@ -1087,6 +1091,7 @@ void EditorWorldECS::pipeline_view_update() {
 	view->set_bg_color(get_bg_color_by_deepness(deepness));
 
 	pipeline_dispatcher_view_update(view, main_dispatcher, deepness);
+#endif
 }
 
 void EditorWorldECS::pipeline_system_bundle_remove(const StringName &p_name) {
@@ -1390,3 +1395,4 @@ void WorldECSEditorPlugin::make_visible(bool p_visible) {
 		ecs_editor->set_world_ecs(nullptr);
 	}
 }
+#endif

@@ -153,6 +153,7 @@ void initialize_bullet_physics_module(ModuleInitializationLevel p_level) {
 				.add("BtOverlapCheck");
 
 	} else if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {
+#ifdef TOOLS_ENABLED
 		// Register gizmos
 		Components3DGizmoPlugin::get_singleton()->add_component_gizmo(memnew(BtBoxGizmo));
 		Components3DGizmoPlugin::get_singleton()->add_component_gizmo(memnew(BtSphereGizmo));
@@ -162,6 +163,7 @@ void initialize_bullet_physics_module(ModuleInitializationLevel p_level) {
 		Components3DGizmoPlugin::get_singleton()->add_component_gizmo(memnew(BtConvexGizmo));
 		Components3DGizmoPlugin::get_singleton()->add_component_gizmo(memnew(BtTrimeshGizmo));
 		Components3DGizmoPlugin::get_singleton()->add_component_gizmo(memnew(BtPawnGizmo));
+#endif
 	}
 }
 
