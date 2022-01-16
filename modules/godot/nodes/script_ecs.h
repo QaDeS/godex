@@ -58,9 +58,11 @@ public:
 
 	static ScriptEcs *get_singleton();
 
+#ifdef TOOLS_ENABLED
 	// ------------------------------------------------------------------ Spawner
 	/// Returns the components name this spawner can spawn.
 	Vector<StringName> spawner_get_components(const StringName &spawner_name);
+#endif
 
 	// ---------------------------------------------------------------- Component
 	/// Load or Reloads a component. Retuns the component id.

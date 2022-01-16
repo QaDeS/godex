@@ -7,12 +7,13 @@
 #include "core/config/project_settings.h"
 #include "core/io/resource_loader.h"
 #include "core/object/script_language.h"
+#include "entity.h"
+#include "shared_component_resource.h"
+
 #ifdef TOOLS_ENABLED
 #include "editor/editor_file_system.h"
 #include "editor/editor_node.h"
 #endif
-#include "entity.h"
-#include "shared_component_resource.h"
 
 ScriptEcs *ScriptEcs::singleton = nullptr;
 
@@ -34,10 +35,10 @@ ScriptEcs::~ScriptEcs() {
 	__empty_scripts();
 }
 
+#ifdef TOOLS_ENABLED
 Vector<StringName> ScriptEcs::spawner_get_components(const StringName &spawner_name) {
 	Vector<StringName> ret;
 
-#ifdef TOOLS_ENABLED
 	// If in editor, extracts the spawnable components.
 	if (Engine::get_singleton()->is_editor_hint()) {
 		RBSet<StringName> *spawnable_components = spawners.lookup_ptr(spawner_name);
@@ -47,7 +48,6 @@ Vector<StringName> ScriptEcs::spawner_get_components(const StringName &spawner_n
 			}
 		}
 	}
-#endif
 	// Now extract the C++ spawnable components.
 	const godex::spawner_id spawner = ECS::get_spawner_id(spawner_name);
 	if (spawner != godex::SPAWNER_NONE) {
@@ -59,6 +59,7 @@ Vector<StringName> ScriptEcs::spawner_get_components(const StringName &spawner_n
 
 	return ret;
 }
+#endif
 
 const LocalVector<Ref<Component>> &ScriptEcs::get_components() {
 	return components;

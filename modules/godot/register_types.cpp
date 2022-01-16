@@ -11,10 +11,6 @@
 #include "databags/input_databag.h"
 #include "databags/scene_tree_databag.h"
 #include "databags/visual_servers_databags.h"
-#include "editor_plugins/components_mesh_gizmo_3d.h"
-#include "editor_plugins/components_transform_gizmo_3d.h"
-#include "editor_plugins/editor_world_ecs.h"
-#include "editor_plugins/entity_editor_plugin.h"
 #include "nodes/ecs_world.h"
 #include "nodes/entity.h"
 #include "nodes/script_ecs.h"
@@ -22,11 +18,11 @@
 #include "systems/mesh_updater_system.h"
 #include "systems/physics_process_system.h"
 #include "systems/timer_updater_system.h"
-
+#ifdef TOOLS_ENABLED
 #include "editor/plugins/node_3d_editor_plugin.h"
 
 extern Ref<Components3DGizmoPlugin> component_gizmo;
-#ifdef TOOLS_ENABLED
+
 static void _editor_init() {
 	EditorNode *p_editor = EditorNode::get_singleton();
 	ERR_FAIL_COND_MSG(p_editor == nullptr, "The editor is not defined.");

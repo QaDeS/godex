@@ -418,6 +418,7 @@ World *WorldECS::get_world() const {
 	return world;
 }
 
+#ifdef TOOLS_ENABLED
 PackedStringArray WorldECS::get_configuration_warnings() const {
 	Vector<String> warnings = Node::get_configuration_warnings();
 
@@ -436,7 +437,6 @@ PackedStringArray WorldECS::get_configuration_warnings() const {
 		warnings.push_back(TTR("The selected pipeline `") + active_pipeline + TTR("` doesn't exists in this WorldECS."));
 	}
 
-#ifdef TOOLS_ENABLED
 	for (int i = 0; i < pipelines.size(); i += 1) {
 		const ExecutionGraph *graph = pipelines[i]->editor_get_execution_graph_or_null();
 		if (graph) {
@@ -448,10 +448,9 @@ PackedStringArray WorldECS::get_configuration_warnings() const {
 			}
 		}
 	}
-#endif
-
 	return warnings;
 }
+#endif
 
 void WorldECS::set_pipelines(Vector<Ref<PipelineECS>> p_pipelines) {
 	pipelines = p_pipelines;
