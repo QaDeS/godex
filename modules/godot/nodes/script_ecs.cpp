@@ -102,7 +102,7 @@ void ScriptEcs::reload_scripts() {
 	}
 
 #ifdef TOOLS_ENABLED
-    // Scan the script classes.
+	// Scan the script classes.
 	if (EditorFileSystem::get_singleton()->get_filesystem()) {
 		const uint64_t modificatio_time =
 				load_scripts(EditorFileSystem::get_singleton()->get_filesystem());
