@@ -87,10 +87,15 @@ public:
 	// ------------------------------------------------------------------ Runtime
 
 	void reload_scripts();
+#ifdef TOOLS_ENABLED
 	uint64_t load_scripts(EditorFileSystemDirectory *p_dir);
+#else
+	uint64_t load_scripts(const String &p_path);
+#endif
+#ifdef TOOLS_ENABLED
 	void define_editor_default_component_properties();
 	void reset_editor_default_component_properties();
-
+#endif
 	void register_runtime_scripts();
 
 	void __empty_scripts();
@@ -103,6 +108,8 @@ public:
 	void flush_scripts_preparation();
 
 private:
+#ifdef TOOLS_ENABLED
 	void save_script(const String &p_setting_list_name, const String &p_script_path);
 	void remove_script(const String &p_setting_list_name, const String &p_script_path);
+#endif
 };

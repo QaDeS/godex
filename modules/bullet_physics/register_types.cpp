@@ -4,7 +4,9 @@
 #include "../godot/editor_plugins/components_gizmo_3d.h"
 #include "components_area.h"
 #include "components_generic.h"
-#include "components_gizmos.h"
+#ifdef TOOLS_ENABLED
+#include "editor/components_gizmos.h"
+#endif
 #include "components_pawn.h"
 #include "components_rigid_body.h"
 #include "databag_space.h"

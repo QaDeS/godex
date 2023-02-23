@@ -20,6 +20,10 @@
 #include "systems/timer_updater_system.h"
 #ifdef TOOLS_ENABLED
 #include "editor/plugins/node_3d_editor_plugin.h"
+#include "editor_plugins/components_mesh_gizmo_3d.h"
+#include "editor_plugins/components_transform_gizmo_3d.h"
+#include "editor_plugins/editor_world_ecs.h"
+#include "editor_plugins/entity_editor_plugin.h"
 
 extern Ref<Components3DGizmoPlugin> component_gizmo;
 
@@ -100,8 +104,13 @@ void initialize_godot_module(ModuleInitializationLevel p_level) {
 								.set_description("Updates the VisualServer mesh transforms."));
 
 		// Physics 3D
+#ifdef TOOLS_ENABLED
+		const String &description = TTR("Physics mechanism.");
+#else
+		const String &description = "Physics mechanism.";
+#endif
 		ECS::register_system_bundle("Physics")
-				.set_description(TTR("Physics mechanism."))
+				.set_description(description)
 				.add(ECS::register_system_dispatcher(physics_pipeline_dispatcher, "Physics")
 								.execute_in(PHASE_PROCESS)
 								.set_description("Physics dispatcher"))
@@ -142,8 +151,8 @@ void initialize_godot_module(ModuleInitializationLevel p_level) {
 		ECS::preload_scripts();
 #endif
 		memnew(ScriptEcs());
-#ifdef TOOLS_ENABLED
 	} else if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {
+#ifdef TOOLS_ENABLED
 		if (Engine::get_singleton()->is_editor_hint()) {
 			EditorNode::add_init_callback(_editor_init);
 
@@ -155,22 +164,23 @@ void initialize_godot_module(ModuleInitializationLevel p_level) {
 			// Load the Scripted Components/Databags/Systems
 			// ScriptEcs::get_singleton()->register_runtime_scripts();
 		}
-	}
-#else
-	}
 #endif
+	}
 }
 
 void uninitialize_godot_module(ModuleInitializationLevel p_level) {
 	if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
+#ifdef TOOLS_ENABLED
 		if (!Engine::get_singleton()->is_editor_hint()) {
 			ScriptEcs::get_singleton()->reset_editor_default_component_properties();
 		}
+#endif
 		memdelete(ScriptEcs::get_singleton());
 	} else if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {
-
+#ifdef TOOLS_ENABLED
 		if (Engine::get_singleton()->is_editor_hint()) {
 			ScriptEcs::get_singleton()->reset_editor_default_component_properties();
 		}
+#endif
 	}
 }
