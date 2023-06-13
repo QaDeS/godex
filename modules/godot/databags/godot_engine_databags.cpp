@@ -35,7 +35,7 @@ const Engine *EngineDatabag::get_engine() const {
 void MessageQueueDatabag::_bind_methods() {}
 
 MessageQueueDatabag::MessageQueueDatabag() {
-	message_queue = MessageQueue::get_singleton();
+	message_queue = (MessageQueue *)MessageQueue::get_singleton();
 }
 
 MessageQueue *MessageQueueDatabag::get_queue() {

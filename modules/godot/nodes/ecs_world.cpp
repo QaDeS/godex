@@ -81,7 +81,7 @@ void PipelineECS::set_system_bundles(Vector<StringName> p_system_bundles) {
 	notify_property_list_changed();
 }
 
-Vector<StringName> PipelineECS::get_system_bundles() {
+Vector<StringName> PipelineECS::get_system_bundles() const {
 	return system_bundles;
 }
 

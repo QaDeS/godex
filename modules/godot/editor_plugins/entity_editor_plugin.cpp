@@ -3,6 +3,7 @@
 #include "../nodes/entity.h"
 #include "core/io/marshalls.h"
 #include "editor/editor_properties.h"
+#include "editor/editor_properties_vector.h"
 #include "editor/editor_properties_array_dict.h"
 #include "editor/editor_settings.h"
 #include "editor/editor_undo_redo_manager.h"

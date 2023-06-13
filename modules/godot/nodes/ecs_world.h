@@ -47,7 +47,7 @@ public:
 	Vector<StringName> get_systems_name() const;
 
 	void set_system_bundles(Vector<StringName> p_system_bundles);
-	Vector<StringName> get_system_bundles();
+	Vector<StringName> get_system_bundles() const;
 
 	/// Insert a new system bundle into the world.
 	void add_system_bundle(const StringName &p_bundle_name);
